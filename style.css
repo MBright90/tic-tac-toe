@@ -1,0 +1,108 @@
+html, *, a {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: inherit;
+}
+
+body {
+    font-family: 'Oleo Script Swash Caps', cursive;
+}
+
+/* -------------- Header ------------- */
+
+header {
+    background-color: #D9CE3F;
+    box-shadow: 0 6px 3px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    padding: 10px;
+}
+
+header > h1 {
+    color: #E83A14;
+    font-family: 'Bangers', cursive;
+    font-size: 48px;
+    letter-spacing: 3px;
+}
+
+/* -------------- Main and player spaces ------------- */
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    min-height: calc(100vh - 75px);
+}
+
+.player-space {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.player-space > .player-card {
+    border-radius: 5px;
+    padding: 50px 25px;
+}
+
+.player-space > .player-card > .player-icon {
+    font-size: 102px;
+    text-align: center;
+}
+
+.player-space > .player-card > .player-name {
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 48px;
+}
+
+/* --------------- Game board ---------------- */
+
+.game-space {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+}
+
+.board-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    padding: 10%;
+    height: 100%;
+    width: 100%;
+}
+
+.game-board {
+    background-color: black;
+    display: grid;
+    grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
+    gap: 5px;
+    flex-shrink: 1;
+    height: 600px;
+    width: 600px;
+
+}
+
+.game-board .grid-space {
+    background-color: white;
+    font-size: 700%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-board .grid-space:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+/* ------------- Footer --------------- */
+
+footer {
+    font-size: 2rem;
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
