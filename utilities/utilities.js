@@ -1,5 +1,7 @@
 const gameBoard = (() => {
 
+    let _activePlayer = 'X';
+
     const _createGridSpaces = () => {
         const gridPositionArr = ['1-1', '1-2', '1-3', '2-1', '2-2', '2-3', '3-1', '3-2', '3-3'];
         let gridArr = [];
@@ -10,7 +12,6 @@ const gameBoard = (() => {
             gridSpace.dataset.gridPosition = gridPositionArr[positionIndex];
             gridArr.push(gridSpace);
         }
-        _gridSpaceListeners(gridArr);
         return gridArr;
     }
 
@@ -18,10 +19,19 @@ const gameBoard = (() => {
         nodeList.forEach(space => {
             space.addEventListener('click', () => {
                 space.textContent = gameMaster.activePlayer();
-                gameMaster.nextTurn();
+                _nextTurn();
             });
         });
     };
+
+    const _removeSpaceListeners = (nodeList) => {
+        nodeList.forEach(space => {
+            space.removeEventListener('click', () => {
+                space.textContent = gameMaster.activePlayer();
+                gameMaster._nextTurn();
+            });
+        });
+    }
 
     const createBoard = () => {
         if (!!document) {
@@ -46,31 +56,32 @@ const gameBoard = (() => {
         }
     }
 
-    return{
-        createBoard,
-        removeBoard,
-    }
-
-})();
-
-const gameMaster = (() => {
-    let _activePlayer = 'X';
-
     const activePlayer = () => {
         return _activePlayer;
     };
 
-    const nextTurn = () => {
+    const _endTurn = () => {
+        _removeSpaceListeners(document.querySelectorAll('.grid-space'))
+    }
+
+    const _nextTurn = () => {
         if (_activePlayer === 'X') {
             _activePlayer = 'O';
         } else {
             _activePlayer = 'X'
         };
+        _endTurn();
     };
+
+    const playerTurn = () => {
+        _gridSpaceListeners();
+    }
 
     return {
         activePlayer: activePlayer,
-        nextTurn: nextTurn,
+        createBoard,
+        removeBoard,
+        playerTurn,
     };
 
 })();
