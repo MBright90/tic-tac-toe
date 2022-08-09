@@ -4,6 +4,7 @@ html, *, a {
     padding: 0;
     text-decoration: none;
     color: inherit;
+    user-select: none;
 }
 
 body {
@@ -78,7 +79,7 @@ main {
     background-color: black;
     display: grid;
     grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
-    gap: 5px;
+    gap: 3px;
     flex-shrink: 1;
     height: 600px;
     width: 600px;
