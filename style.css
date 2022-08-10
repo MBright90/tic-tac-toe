@@ -7,6 +7,14 @@ html, *, a {
     user-select: none;
 }
 
+@font-face {
+    font-family: 'tillana-bold';
+    src: url('./Fonts/tillana-bold-webfont.woff2') format('woff2'),
+         url('./Fonts/tillana-bold-webfont.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
 body {
     font-family: 'Oleo Script Swash Caps', cursive;
 }
@@ -52,9 +60,16 @@ main {
     text-align: center;
 }
 
-.player-space > .player-card > .player-name {
+.player-space > .player-card > .player-info {
     color: rgba(0, 0, 0, 0.8);
     font-size: 48px;
+}
+
+.player-space > .player-card > .player-info > .player-score {
+    color: #8b0000;
+    font-family: 'tillana-bold';
+    text-align: center;
+    letter-spacing: 5px;
 }
 
 /* --------------- Game board ---------------- */
