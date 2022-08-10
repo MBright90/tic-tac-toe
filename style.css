@@ -9,8 +9,8 @@ html, *, a {
 
 @font-face {
     font-family: 'tillana-bold';
-    src: url('./Fonts/tillana-bold-webfont.woff2') format('woff2'),
-         url('./Fonts/tillana-bold-webfont.woff') format('woff');
+    src: url('./fonts/tillana-bold-webfont.woff2') format('woff2'),
+         url('./fonts/tillana-bold-webfont.woff') format('woff');
     font-weight: bold;
     font-style: normal;
 }
