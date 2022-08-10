@@ -1,6 +1,7 @@
 import {gameBoard, gameMaster} from './utilities/utilities.js'
 
 const hideModal = () => {
+    gameMaster.updateScores();
     let modal = document.querySelector('.modal-background');
     modal.style.visibility = 'hidden'
 
