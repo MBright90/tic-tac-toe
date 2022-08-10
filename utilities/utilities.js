@@ -1,9 +1,11 @@
 const gameBoard = (() => {
 
     let _activePlayer = 'O';
+    // let _computerPlayer = false;
     let _turnLog = [];
     let _gameComplete = false;
 
+    const gridPositionArr = ['1-1', '1-2', '1-3', '2-1', '2-2', '2-3', '3-1', '3-2', '3-3'];
     const _victoryConditions = [
     ['1-1', '1-2', '1-3'],
     ['2-1', '2-2', '2-3'],
@@ -44,8 +46,8 @@ const gameBoard = (() => {
             if (filteredTurns.includes(condition[0]) &&
                 filteredTurns.includes(condition[1]) &&
                 filteredTurns.includes(condition[2])) {
-                    console.log('We have a winner')
                     victory = true;
+                    return _activePlayer === 'X' ? PlayerX.addWin() : PlayerO.addWin();
             };
         })
         return victory;
@@ -79,7 +81,6 @@ const gameBoard = (() => {
     };
 
     const _createGridSpaces = () => {
-        const gridPositionArr = ['1-1', '1-2', '1-3', '2-1', '2-2', '2-3', '3-1', '3-2', '3-3'];
         let gridArr = [];
         for (let positionIndex = 0; positionIndex < 9; positionIndex++) {
             const gridSpace = document.createElement('div');
@@ -125,20 +126,34 @@ const gameBoard = (() => {
             _endGameMessage(`${_activePlayer} wins!`);
         } else if (_checkGridFull()) {
             _gameComplete = true;
-            _endGameMessage('draw');
+            _endGameMessage('Draw');
         } else {
             startNextTurn();
         }
     };
 
-    // const _setNextTurn = () => {
-    //     if (_activePlayer === 'X') {
-    //         _activePlayer = 'O';
-    //     } else {
-    //         _activePlayer = 'X'
-    //     };
-    //     startNextTurn();
-    // };
+    // ----------- Player Objects ------------- //
+
+    const Player = () => {
+        let _winCount = 0;
+
+        const addWin = () => {
+            _winCount++;
+            console.log(`wins: ${_winCount}`)
+        }
+        const countWins = () => {
+            return _winCount;
+        }
+
+        return {
+            addWin: addWin,
+            countWins: countWins
+        }
+    }
+
+    const PlayerX = Player(0);
+    const PlayerO = Player(0); 
+    const playerArray = [PlayerX, PlayerO];
 
     // ----------- Information functions ----------- //
 
@@ -147,14 +162,22 @@ const gameBoard = (() => {
         _turnLog = [];
     };
 
+    const activePlayer = () => {
+        return _activePlayer;
+    };
+
     return {
         createBoard: createBoard,
         removeBoard: removeBoard,
         startNextTurn: startNextTurn,
-        clearStats: clearStats
+        clearStats: clearStats,
+        activePlayer: activePlayer,
+        playerArray: playerArray
     };
 
 })();
+
+// ------------ Game Master --------------- //
 
 const gameMaster = (() => {
 
@@ -162,8 +185,25 @@ const gameMaster = (() => {
         gameBoard.startNextTurn()
     };
 
+    const _createScore = (score) => {
+        let repeatedTicks = '';
+        let tick = '✔';
+        for (let i = 1; i <= score; i++) {
+            repeatedTicks += tick;
+        };
+        return repeatedTicks;
+    }
+
+    const updateScores = () => {
+        let playerScores = document.querySelectorAll('.player-score')
+        for (let i = 0; i < 2; i++) {
+            playerScores[i].textContent = _createScore(gameBoard.playerArray[i].countWins()); 
+        }
+    }
+
     return {
         playGame: playGame,
+        updateScores: updateScores
     };
 
 })();
