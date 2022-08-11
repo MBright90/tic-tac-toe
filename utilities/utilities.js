@@ -36,6 +36,17 @@ const gameMaster = (() => {
         };
     
         // ---------- Game end functions ---------- //
+
+        const _verifyOverallWinner = () => {
+            let isVictorious = false
+            playerArray.forEach(player => {
+                if (player.countWins() >= 3) {
+                    isVictorious = true;
+                }; 
+            });
+            return isVictorious;
+        };
+
         const _checkVictoryStatus = () => {
     
             let victory = false;
@@ -61,10 +72,20 @@ const gameMaster = (() => {
             return _turnLog.length >= 9 ? true : false;
         };
     
-        const _endGameMessage = (message) => {
+        const _endGameMessage = (message, finalState) => {
             let endGameModal = document.querySelector('.modal-background');
             let messageSpace = document.querySelector('.end-game-message')
             messageSpace.textContent = message;
+            console.log(finalState)
+            if (finalState) {
+                let completePara = document.querySelectorAll('.end-game-modal>p')[1];
+                completePara.textContent = 'First to three';
+                let modalButtons = document.querySelectorAll('button');
+                console.log(modalButtons)
+                modalButtons.forEach(button => {
+                    button.remove();
+                });
+            };
             endGameModal.style.visibility = 'visible';
         }
     
@@ -127,10 +148,14 @@ const gameMaster = (() => {
             _removeSpaceListeners(document.querySelectorAll('.grid-space'));
             if (_checkVictoryStatus()) {
                 _gameComplete = true;
-                _endGameMessage(`${_activePlayer} wins!`);
+                if (_verifyOverallWinner()) {
+                    _endGameMessage(`${_activePlayer} wins!`, true)
+                } else {
+                _endGameMessage(`${_activePlayer} wins!`, false);
+                };
             } else if (_checkGridFull()) {
                 _gameComplete = true;
-                _endGameMessage('Draw');
+                _endGameMessage('Draw', false);
             } else {
                 startNextTurn();
             }
@@ -153,7 +178,7 @@ const gameMaster = (() => {
                 addWin: addWin,
                 countWins: countWins
             }
-        }
+        };
     
         const PlayerX = Player(0);
         const PlayerO = Player(0); 
@@ -192,23 +217,19 @@ const gameMaster = (() => {
             repeatedTicks += tick;
         };
         return repeatedTicks;
-    }
+    };
 
     const updateScores = () => {
         let playerScores = document.querySelectorAll('.player-score')
         for (let i = 0; i < 2; i++) {
             playerScores[i].textContent = _createScore(gameBoard.playerArray[i].countWins()); 
-        }
-    }
-
-    const announceWinner = () => {
-        
-    }
+        };
+    };
 
     return {
         gameBoard: gameBoard,
         playGame: playGame,
-        updateScores: updateScores
+        updateScores: updateScores,
     };
 
 })();
