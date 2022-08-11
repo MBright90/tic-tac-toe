@@ -1,4 +1,4 @@
-import {gameBoard, gameMaster} from './utilities/utilities.js'
+import {gameMaster} from './utilities/utilities.js'
 
 const hideModal = () => {
     gameMaster.updateScores();
@@ -10,9 +10,9 @@ const hideModal = () => {
 
 let confirmButton = document.querySelector('.new-game-button')
 confirmButton.addEventListener('click', () => {
-    gameBoard.removeBoard();
-    gameBoard.clearStats();
-    gameBoard.createBoard();
+    gameMaster.gameBoard.removeBoard();
+    gameMaster.gameBoard.clearStats();
+    gameMaster.gameBoard.createBoard();
     gameMaster.playGame();
     hideModal();
 });
@@ -22,5 +22,5 @@ cancelGameButton.addEventListener('click', () => {
     hideModal();
 });
 
-gameBoard.createBoard();
+gameMaster.gameBoard.createBoard();
 gameMaster.playGame();
