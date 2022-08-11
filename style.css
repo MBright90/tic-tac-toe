@@ -17,6 +17,11 @@ html, *, a {
 
 body {
     font-family: 'Oleo Script Swash Caps', cursive;
+    position: relative;
+}
+
+p:empty {
+    height: 18px;
 }
 
 /* -------------- Header ------------- */
@@ -25,7 +30,8 @@ header {
     background-color: #D9CE3F;
     box-shadow: 0 6px 3px rgba(0, 0, 0, 0.6);
     text-align: center;
-    padding: 10px;
+    padding: 3px;
+    width: 100vw;
 }
 
 header > h1 {
@@ -38,21 +44,28 @@ header > h1 {
 /* -------------- Main and player spaces ------------- */
 
 main {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     min-height: calc(100vh - 75px);
+    position: relative;
 }
 
 .player-space {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-width: 212px;
 }
 
 .player-space > .player-card {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
     border-radius: 5px;
-    padding: 50px 25px;
+    padding: 5px;
 }
 
 .player-space > .player-card > .player-icon {
@@ -63,10 +76,12 @@ main {
 .player-space > .player-card > .player-info {
     color: rgba(0, 0, 0, 0.8);
     font-size: 48px;
+    text-align: center;
 }
 
 .player-space > .player-card > .player-info > .player-score {
     color: #8b0000;
+    display:inline-block;
     font-family: 'tillana-bold';
     text-align: center;
     letter-spacing: 5px;
@@ -76,8 +91,11 @@ main {
 
 .game-space {
     display: flex;
-    justify-items: center;
+    flex-shrink: 1;
+    justify-content: center;
     align-items: center;
+    min-width: 200px;
+    min-height: 300px;
 }
 
 .board-container {
@@ -85,25 +103,26 @@ main {
     justify-content: center;
     align-items: center;
     
-    padding: 10%;
-    height: 100%;
-    width: 100%;
+    padding: 10px;
+    min-height: 200px;
+    width: 90%;
 }
 
 .game-board {
     background-color: black;
     display: grid;
     grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
-    gap: 3px;
     flex-shrink: 1;
-    height: 600px;
-    width: 600px;
+    gap: 3px;
+    height: min(50vh, 700px);
+    min-height: 350px;
+    min-width: 350px;
 
 }
 
 .game-board .grid-space {
     background-color: white;
-    font-size: 700%;
+    font-size: 450%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -175,9 +194,57 @@ main {
 /* ------------- Footer --------------- */
 
 footer {
+    color:rgba(0, 0, 0, 0.4);
     font-size: 2rem;
     position: absolute;
-    bottom: 20px;
+    bottom: 10px;
     width: 100%;
     text-align: center;
+}
+
+@media screen and (min-width: 1079px) {
+    main {
+        display: grid;
+        grid-template-columns: auto 2fr auto;
+        min-height: calc(100vh - 75px);
+    }
+
+    header {
+        padding: 10px;
+    }
+
+    header > h1 {
+        font-size: 48px;
+    }
+
+    main > .player-space:first-of-type {
+        margin-left: 8vw;
+    }
+
+    main > .player-space:last-of-type {
+        margin-right: 8vw;
+    }
+
+    .player-space > .player-card,
+    .board-container {
+        padding: 50px 25px;
+        height: 750px;
+    }
+
+    .board-container > .game-board {
+        
+        width: 750px;
+    }
+
+    @media screen and (max-height: 820px) {
+        footer {
+            display: none;
+        }
+    }
+}
+
+@media screen and (max-height: 820px) {
+    footer {
+        display: none;
+    }
 }
