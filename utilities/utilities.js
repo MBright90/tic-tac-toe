@@ -5,7 +5,7 @@ const gameMaster = (() => {
     const gameBoard = (() => {
 
         let _activePlayer = 'O';
-        // let _computerPlayer = false;
+        let _computerPlayer = false;
         let _turnLog = [];
         let _gameComplete = false;
     
@@ -20,6 +20,11 @@ const gameMaster = (() => {
         ['1-1', '2-2', '3-3'],
         ['1-3', '2-2', '3-1'] 
         ];
+
+        const setComputerPlayer = (choice) => {
+            console.log(choice);
+            return choice ? _computerPlayer = true : _computerPlayer = false;
+        }
     
         const _gridSpaceListeners = (nodeList) => {
             nodeList.forEach(space => {
@@ -210,6 +215,7 @@ const gameMaster = (() => {
             startNextTurn: startNextTurn,
             clearStats: clearStats,
             activePlayer: activePlayer,
+            setComputerPlayer: setComputerPlayer,
             playerArray: playerArray
         };
     
@@ -235,10 +241,37 @@ const gameMaster = (() => {
         };
     };
 
+    const chooseComputerPlayer = () => {
+
+        let choiceBackground = document.querySelector('.choice-background');
+        choiceBackground.style.visibility = 'visible';
+
+        let choosePlayer = document.querySelector('.choose-player');
+        choosePlayer.addEventListener('click', () => {
+            gameBoard.setComputerPlayer(false);
+            choiceBackground.style.visibility = 'hidden';
+        });
+
+        let chooseComputer = document.querySelector('.choose-computer');
+        chooseComputer.addEventListener('click', () => {
+            gameBoard.setComputerPlayer(true);
+            choiceBackground.style.visibility = 'hidden';
+        });
+    };
+
+    const gameEnded = () => {
+        let playerList = document.querySelectorAll('.player-card');
+        playerList.forEach(card => {
+            card.classList.remove('is-playing')
+        })
+    }
+
     return {
         gameBoard: gameBoard,
         playGame: playGame,
         updateScores: updateScores,
+        gameEnded: gameEnded,
+        chooseComputerPlayer: chooseComputerPlayer
     };
 
 })();
