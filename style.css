@@ -147,7 +147,7 @@ main {
 
 .game-board .grid-space {
     background-color: white;
-    font-size: 450%;
+    font-size: 300%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -277,8 +277,11 @@ footer {
     }
 
     .board-container > .game-board {
-        
         width: 750px;
+    }
+
+    .board-container > .game-board > .grid-space {
+        font-size: 450%;
     }
 
     .player-space > .player-card > .player-icon {
