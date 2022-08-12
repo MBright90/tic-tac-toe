@@ -19,8 +19,11 @@ confirmButton.addEventListener('click', () => {
 
 let cancelGameButton = document.querySelector('.cancel-game-button')
 cancelGameButton.addEventListener('click', () => {
+    gameMaster.gameEnded();
     hideModal();
 });
 
+
 gameMaster.gameBoard.createBoard();
+gameMaster.chooseComputerPlayer();
 gameMaster.playGame();
