@@ -157,9 +157,9 @@ main {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
+/* ------------- Modals ------------- */
 
-/* ------------- End game modal --------------- */
-
+.choice-background,
 .modal-background {
     display: flex;
     justify-content: center;
@@ -174,18 +174,38 @@ main {
     visibility: hidden;
 }
 
-.modal-background .end-game-modal {
+.choice-background .choice-modal,
+.modal-background .end-game-modal
+ {
     background-color: #FFF;
-    border-radius: 10px;
-    display: grid;
-    gap: 5px;
-    grid-template: repeat(2, 1fr) auto / repeat(2, 1fr);
+    border-radius: 10px;    
     padding: 20px;
     margin-top: -100px;
     height: auto;
     width: 400px;
+    gap: 5px;
 }
 
+.choice-background .choice-modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.choice-background .choice-modal button {
+    border-radius: 5px;
+    font-size: 32px;
+    padding: 15px;
+    width: 75px;
+}
+
+.modal-background .end-game-modal {
+    display: grid;
+    grid-template: repeat(2, 1fr) auto / repeat(2, 1fr);
+}
+
+.choice-background .choice-modal p,
 .modal-background .end-game-modal p {
     font-size: 3rem;
     justify-self: center;
@@ -267,6 +287,10 @@ footer {
     
     .player-space > .player-card > .player-info {
         font-size: 48px;
+    }
+
+    .choice-background .choice-modal {
+        flex-direction: row;
     }
 
     @media screen and (max-height: 820px) {
