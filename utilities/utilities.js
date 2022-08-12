@@ -126,10 +126,19 @@ const gameMaster = (() => {
         // ---------- Turn functions ---------- //
     
         const startNextTurn = () => {
+            let playerList = document.querySelectorAll('.player-card')
             if (_activePlayer === 'X') {
                 _activePlayer = 'O';
+                playerList[1].classList.add('is-playing')
+                if (playerList[0].classList.contains('is-playing')) {
+                    playerList[0].classList.remove('is-playing')
+                }
             } else {
                 _activePlayer = 'X'
+                playerList[0].classList.add('is-playing')
+                if (playerList[1].classList.contains('is-playing')) {
+                    playerList[1].classList.remove('is-playing')
+                }
             };
             _gridSpaceListeners(document.querySelectorAll('.grid-space'));
         };
