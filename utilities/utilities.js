@@ -170,7 +170,7 @@ const gameMaster = (() => {
 
             _removeSpaceListeners(document.querySelectorAll('.grid-space'));
 
-            const sleep = ms => {
+            const _sleep = ms => {
                 return new Promise(resolve => setTimeout(resolve, ms));
             }
 
@@ -178,7 +178,7 @@ const gameMaster = (() => {
             let chosenGridSpace = document.querySelector(`[data-grid-number='${randomChoice}']`)
 
             if (chosenGridSpace.textContent === '') {
-                sleep(1000).then(() => {
+                _sleep(1000).then(() => {
                     let turnToLog = {
                         turnPosition: chosenGridSpace.dataset.gridPosition,
                         turnPlayer: _activePlayer
