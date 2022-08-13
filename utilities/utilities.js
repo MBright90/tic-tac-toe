@@ -116,6 +116,7 @@ const gameMaster = (() => {
                 const gridSpace = document.createElement('div');
                 gridSpace.classList.add('grid-space');
                 gridSpace.dataset.gridPosition = gridPositionArr[positionIndex];
+                gridSpace.dataset.gridNumber = positionIndex + 1;
                 gridArr.push(gridSpace);
             };
             return gridArr;
@@ -145,10 +146,17 @@ const gameMaster = (() => {
                     playerList[1].classList.remove('is-playing')
                 }
             };
-            _gridSpaceListeners(document.querySelectorAll('.grid-space'));
+            if (_computerPlayer && _activePlayer === 'O') {
+                _computerTurn();
+            } else {
+                _gridSpaceListeners(document.querySelectorAll('.grid-space'));
+            }
         };
     
         const _placeTurn = (e) => {
+
+            _removeSpaceListeners(document.querySelectorAll('.grid-space'));
+
             e.target.textContent = _activePlayer;
             let turnToLog = {
                 turnPosition: e.target.dataset.gridPosition,
@@ -157,9 +165,35 @@ const gameMaster = (() => {
             _turnLog.push(turnToLog);
             _endTurn();
         }
+
+        const _computerTurn = () => {
+
+            _removeSpaceListeners(document.querySelectorAll('.grid-space'));
+
+            const sleep = ms => {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
+            let randomChoice = Math.floor((Math.random() * 9) + 1)
+            let chosenGridSpace = document.querySelector(`[data-grid-number='${randomChoice}']`)
+
+            if (chosenGridSpace.textContent === '') {
+                sleep(1000).then(() => {
+                    let turnToLog = {
+                        turnPosition: chosenGridSpace.dataset.gridPosition,
+                        turnPlayer: _activePlayer
+                    }
+                    _turnLog.push(turnToLog)
+                    chosenGridSpace.textContent = _activePlayer;
+                    _endTurn();
+                });
+            } else {
+                _computerTurn();
+            };
+        };
     
         const _endTurn = () => {
-            _removeSpaceListeners(document.querySelectorAll('.grid-space'));
+
             if (_checkVictoryStatus()) {
                 _gameComplete = true;
                 if (_verifyOverallWinner()) {
@@ -255,6 +289,8 @@ const gameMaster = (() => {
         let chooseComputer = document.querySelector('.choose-computer');
         chooseComputer.addEventListener('click', () => {
             gameBoard.setComputerPlayer(true);
+            let iconSpace = document.querySelectorAll('.player-icon')[1];
+            iconSpace.innerHTML = '<i class="fa-solid fa-computer"></i>'
             choiceBackground.style.visibility = 'hidden';
         });
     };
