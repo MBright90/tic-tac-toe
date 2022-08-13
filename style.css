@@ -224,6 +224,7 @@ main {
     align-self: center;
     justify-self: center;
     font-size: 1.6rem;
+    margin-top: 10px;
     height: 35px;
     width: 80%;
 }
