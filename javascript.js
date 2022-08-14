@@ -25,5 +25,5 @@ cancelGameButton.addEventListener('click', () => {
 
 
 gameMaster.gameBoard.createBoard();
-gameMaster.chooseComputerPlayer();
+gameMaster.showChoices();
 gameMaster.playGame();
