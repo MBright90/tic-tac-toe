@@ -22,7 +22,10 @@ const gameMaster = (() => {
         ];
 
         const setComputerPlayer = (choice) => {
-            console.log(choice);
+            if (choice) {
+                let iconSpace = document.querySelectorAll('.player-icon')[1];
+                iconSpace.innerHTML = '<i class="fa-solid fa-computer"></i>'
+            };
             return choice ? _computerPlayer = true : _computerPlayer = false;
         }
     
@@ -255,6 +258,59 @@ const gameMaster = (() => {
     
     })();
 
+    const showChoices = () => {
+        let choiceBackground = document.querySelector('.choice-background');
+        choiceBackground.style.visibility = 'visible';
+
+        let choosePlayer = document.querySelector('.choose-player');
+        let chooseComputer = document.querySelector('.choose-computer');
+
+        choosePlayer.addEventListener('click', () => {
+            choosePlayer.classList.add('current-choice')
+            if (chooseComputer.classList.contains('current-choice')) {
+                chooseComputer.classList.remove('current-choice');
+            };
+        });
+   
+        chooseComputer.addEventListener('click', () => {
+            chooseComputer.classList.add('current-choice')
+            if (choosePlayer.classList.contains('current-choice')) {
+                choosePlayer.classList.remove('current-choice');
+            };
+        });
+
+        let confirmChoices = document.querySelector('.choice-confirm-button')
+        confirmChoices.addEventListener('click', () => {
+            _setUpGame()
+            choiceBackground.style.visibility = 'hidden';
+        });
+    }
+
+    const _setNames = () => {
+        let playerNamespaces = document.querySelectorAll('.player-name')
+
+        let playerOneField = document.querySelector('#player-one-name')
+        if (playerOneField.value) {
+            playerNamespaces[0].textContent = playerOneField.value;
+        };
+
+        let playerTwoField = document.querySelector('#player-two-name')
+        if (playerTwoField.value) {
+            playerNamespaces[1].textContent = playerTwoField.value
+        }
+    }
+
+    const _setOpposition = () => {
+        let choosePlayer = document.querySelector('.choose-player');
+        return choosePlayer.classList.contains('current-choice') ? gameBoard.setComputerPlayer(false): 
+                                                                   gameBoard.setComputerPlayer(true);   
+    };
+
+    const _setUpGame = () => {
+        _setNames();
+        _setOpposition();
+    }
+
     const playGame = () => {
         gameBoard.startNextTurn()
     };
@@ -275,26 +331,6 @@ const gameMaster = (() => {
         };
     };
 
-    const chooseComputerPlayer = () => {
-
-        let choiceBackground = document.querySelector('.choice-background');
-        choiceBackground.style.visibility = 'visible';
-
-        let choosePlayer = document.querySelector('.choose-player');
-        choosePlayer.addEventListener('click', () => {
-            gameBoard.setComputerPlayer(false);
-            choiceBackground.style.visibility = 'hidden';
-        });
-
-        let chooseComputer = document.querySelector('.choose-computer');
-        chooseComputer.addEventListener('click', () => {
-            gameBoard.setComputerPlayer(true);
-            let iconSpace = document.querySelectorAll('.player-icon')[1];
-            iconSpace.innerHTML = '<i class="fa-solid fa-computer"></i>'
-            choiceBackground.style.visibility = 'hidden';
-        });
-    };
-
     const gameEnded = () => {
         let playerList = document.querySelectorAll('.player-card');
         playerList.forEach(card => {
@@ -307,7 +343,7 @@ const gameMaster = (() => {
         playGame: playGame,
         updateScores: updateScores,
         gameEnded: gameEnded,
-        chooseComputerPlayer: chooseComputerPlayer
+        showChoices: showChoices,
     };
 
 })();
