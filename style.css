@@ -174,6 +174,10 @@ main {
     visibility: hidden;
 }
 
+.choice-background {
+    visibility: 'visible' !important;
+}
+
 .choice-background .choice-modal,
 .modal-background .end-game-modal
  {
@@ -182,22 +186,46 @@ main {
     padding: 20px;
     margin-top: -100px;
     height: auto;
-    width: 400px;
+    width: 350px;
     gap: 5px;
 }
 
 .choice-background .choice-modal {
     display: flex;
+    gap: 20px;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
 }
 
+.choice-background .choice-modal input[type='text'] {
+    padding: 5px;
+    width: 200px;
+}
+
 .choice-background .choice-modal button {
+    height: 30px;
+    width: 200px;
+}
+
+.choice-background .choice-modal .choice-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.choice-background .choice-modal .choice-buttons button {
     border-radius: 5px;
     font-size: 32px;
     padding: 15px;
+    height: 75px;
     width: 75px;
+}
+
+.choice-background .choice-modal .choice-buttons .current-choice {
+    outline: 3px solid #D9CE3F;
+    outline-offset: 3px;
 }
 
 .modal-background .end-game-modal {
@@ -291,10 +319,6 @@ footer {
     
     .player-space > .player-card > .player-info {
         font-size: 48px;
-    }
-
-    .choice-background .choice-modal {
-        flex-direction: row;
     }
 
     @media screen and (max-height: 820px) {
