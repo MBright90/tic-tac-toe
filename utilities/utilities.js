@@ -191,7 +191,8 @@ const gameMaster = (() => {
             }
 
             // let computerChoice =         
-            computerBrain.chooseMove();
+            let computerChoice = computerBrain.chooseMove();
+            console.log(computerChoice);
             let chosenGridSpace = document.querySelector(`[data-grid-number='${computerChoice}']`)
 
             if (chosenGridSpace.textContent === '') {
