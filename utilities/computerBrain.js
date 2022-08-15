@@ -1,7 +1,7 @@
 const computerBrain = (() => {
     let _difficultyPercent = 100;
     let _aiMarker = 'O';
-    let _playerMarker ='X';
+    let _playerMarker = 'X';
 
     const changeDifficulty = (percent) => {
         _difficultyPercent = percent;
@@ -12,16 +12,16 @@ const computerBrain = (() => {
     const chooseMove = () => {
 
         let randomValue = Math.floor((Math.random() * 100) + 1);
+        let computerMoveNum;
 
         if (randomValue < _difficultyPercent) {
-            console.log('Choosing Best Move')
-            computerMoveNum = _minimax(_currentBoardState(), _aiMarker);
+            computerMoveNum = _minimax(_currentBoardState(), _aiMarker).index;
         }
         else {
-            console.log('Choosing Random Move')
-            computerMove = Math.floor((Math.random() * 9) + 1)
+            computerMoveNum = Math.floor((Math.random() * 9) + 1)
         }
         return computerMoveNum;
+        
     }
 
     const _currentBoardState = () => {
@@ -49,7 +49,7 @@ const computerBrain = (() => {
         return boardState.filter(space => {
             return space === 'X' || space === 'O' ? false : true; 
         });
-    }
+    };
 
     const _checkForWinningMove = (boardState, playerMark) => {
 
@@ -70,15 +70,13 @@ const computerBrain = (() => {
         } else {
             return false;
         }
-    }
+    };
 
     const _findBestMove = (player, testArray) => {
 
         // Iterating through the available test information to find the best current moves
 
         let currentBestMove;
-
-        console.log(`Test Array beginning: ${JSON.stringify(testArray)}`)
 
         if (player === _aiMarker) {
             let bestScore = Infinity;
@@ -99,8 +97,7 @@ const computerBrain = (() => {
             };
         };
 
-        console.log(`Test Array Best move: ${JSON.stringify(testArray[currentBestMove])}`)
-        return testArray[currentBestMove];
+        return currentBestMove;
     
     };
 
@@ -122,6 +119,8 @@ const computerBrain = (() => {
 
         const allTests = [];
 
+        // Loop through the empty cells and test all possibilities
+
         for (let i = 0; i < emptyCells.length; i++) {
 
             const currentMove = {};
@@ -131,12 +130,12 @@ const computerBrain = (() => {
 
             if (currentPlayer === _aiMarker) {
 
-                const result = _minimax(boardState, _playerMarker);
+                let result = _minimax(boardState, _playerMarker);
                 currentMove.score = result.score; 
 
             } else if (currentPlayer === _playerMarker) {
 
-                const result = _minimax(boardState, _aiMarker);
+                let result = _minimax(boardState, _aiMarker);
                 currentMove.score = result.score;
             }
 
@@ -146,7 +145,6 @@ const computerBrain = (() => {
 
         let bestMove = _findBestMove(currentPlayer, allTests);
 
-        console.log(`Best Move: ${JSON.stringify(bestMove)}`);
         return allTests[bestMove];
     }
 
