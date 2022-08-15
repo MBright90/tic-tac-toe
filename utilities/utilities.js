@@ -1,3 +1,5 @@
+import {computerBrain} from './computerBrain.js'
+
 // ------------ Game Master --------------- //
 
 const gameMaster = (() => {
@@ -188,8 +190,9 @@ const gameMaster = (() => {
                 return new Promise(resolve => setTimeout(resolve, ms));
             }
 
-            let randomChoice = Math.floor((Math.random() * 9) + 1)
-            let chosenGridSpace = document.querySelector(`[data-grid-number='${randomChoice}']`)
+            // let computerChoice =         
+            computerBrain.chooseMove();
+            let chosenGridSpace = document.querySelector(`[data-grid-number='${computerChoice}']`)
 
             if (chosenGridSpace.textContent === '') {
                 _sleep(1000).then(() => {
