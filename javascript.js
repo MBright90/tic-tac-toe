@@ -10,8 +10,12 @@ const hideModal = () => {
 
 let confirmButton = document.querySelector('.new-game-button')
 confirmButton.addEventListener('click', () => {
+    if (gameMaster.gameBoard.isGameComplete()) {
+        gameMaster.gameBoard.resetGameBoard();
+        gameMaster.showChoices();
+    };
     gameMaster.gameBoard.removeBoard();
-    gameMaster.gameBoard.clearStats();
+    gameMaster.gameBoard.clearCurrentStats();
     gameMaster.gameBoard.createBoard();
     gameMaster.playGame();
     hideModal();}
