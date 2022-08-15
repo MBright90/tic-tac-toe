@@ -8,6 +8,7 @@ const gameMaster = (() => {
         let _computerPlayer = false;
         let _turnLog = [];
         let _gameComplete = false;
+        let _finalGameComplete = false;
     
         const gridPositionArr = ['1-1', '1-2', '1-3', '2-1', '2-2', '2-3', '3-1', '3-2', '3-3'];
         const _victoryConditions = [
@@ -49,6 +50,7 @@ const gameMaster = (() => {
             let isVictorious = false
             playerArray.forEach(player => {
                 if (player.countWins() >= 3) {
+                    _finalGameComplete = true;
                     isVictorious = true;
                 }; 
             });
@@ -85,16 +87,25 @@ const gameMaster = (() => {
             let messageSpace = document.querySelector('.end-game-message')
             messageSpace.textContent = message;
             console.log(finalState)
+
+            let completePara = document.querySelectorAll('.end-game-modal>p')[1];
             if (finalState) {
-                let completePara = document.querySelectorAll('.end-game-modal>p')[1];
-                completePara.textContent = 'First to three';
-                let modalButtons = document.querySelectorAll('button');
-                console.log(modalButtons)
-                modalButtons.forEach(button => {
-                    button.remove();
-                });
+                completePara.textContent = 'Reset Game?';
+            } else {
+                completePara.textContent = 'Next Round?';
             };
+
             endGameModal.style.visibility = 'visible';
+        }
+
+        const resetGameBoard = () => {
+            _activePlayer = 'O';
+            _computerPlayer = false;
+            _turnLog = [];
+            _gameComplete = false;
+            _finalGameComplete = false;
+            PlayerX.resetPlayer();
+            PlayerO.resetPlayer();
         }
     
         // ---------- Board functions ---------- //
@@ -216,6 +227,10 @@ const gameMaster = (() => {
     
         const Player = () => {
             let _winCount = 0;
+
+            const resetPlayer = () => {
+                _winCount = 0;
+            }
     
             const addWin = () => {
                 _winCount++;
@@ -227,7 +242,8 @@ const gameMaster = (() => {
     
             return {
                 addWin: addWin,
-                countWins: countWins
+                countWins: countWins,
+                resetPlayer: resetPlayer
             }
         };
     
@@ -237,7 +253,7 @@ const gameMaster = (() => {
     
         // ----------- Information functions ----------- //
     
-        const clearStats = () => {
+        const clearCurrentStats = () => {
             _gameComplete = false;
             _turnLog = [];
         };
@@ -245,14 +261,20 @@ const gameMaster = (() => {
         const activePlayer = () => {
             return _activePlayer;
         };
+
+        const isGameComplete = () => {
+            return _finalGameComplete;
+        }
     
         return {
             createBoard: createBoard,
             removeBoard: removeBoard,
             startNextTurn: startNextTurn,
-            clearStats: clearStats,
+            clearCurrentStats: clearCurrentStats,
             activePlayer: activePlayer,
             setComputerPlayer: setComputerPlayer,
+            isGameComplete: isGameComplete,
+            resetGameBoard: resetGameBoard,
             playerArray: playerArray
         };
     
