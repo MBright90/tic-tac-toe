@@ -12,7 +12,6 @@ const computerBrain = (() => {
     const chooseMove = () => {
 
         let randomValue = Math.floor((Math.random() * 100) + 1);
-        let computerMove;
 
         if (randomValue < _difficultyPercent) {
             console.log('Choosing Best Move')
@@ -34,7 +33,7 @@ const computerBrain = (() => {
         let currentBoardState = [];
         for (let i = 0; i < fullGridArray.length; i++) {
             if (fullGridArray[i].textContent === '') {
-                currentBoardState.push(fullGridArray[i].dataset.gridNumber);
+                currentBoardState.push(fullGridArray[i].dataset.gridNumber - 1);
             } else {
                 currentBoardState.push(fullGridArray[i].textContent);
             };
@@ -79,25 +78,29 @@ const computerBrain = (() => {
 
         let currentBestMove;
 
+        console.log(`Test Array beginning: ${JSON.stringify(testArray)}`)
+
         if (player === _aiMarker) {
             let bestScore = Infinity;
             for (let i = 0; i < testArray.length; i++) {
-                if (testArray[i] < bestScore) {
+                if (testArray[i].score < bestScore) {
                     bestScore = testArray[i].score;
                     currentBestMove = i;
                 };
             };
+
         } else {
             let bestScore = -Infinity;
-            for (let i = 0; i > testArray.length; i++) {
-                if (testArray[i] < bestScore) {
+            for (let i = 0; i < testArray.length; i++) {
+                if (testArray[i].score > bestScore) {
                     bestScore = testArray[i].score;
                     currentBestMove = i;
                 };
             };
         };
 
-        return currentBestMove;
+        console.log(`Test Array Best move: ${JSON.stringify(testArray[currentBestMove])}`)
+        return testArray[currentBestMove];
     
     };
 
@@ -107,39 +110,43 @@ const computerBrain = (() => {
 
         // Checking for end game states and breaking the recursive loop
 
-        if (_checkForWinningMove(boardState, _playerMarker)) {
-            return -1;
-        } else if (_checkForWinningMove(boardState, _aiMarker)) {
-            return 1;
+        if (_checkForWinningMove(boardState, _aiMarker)) {
+            return {score: 100};
+        } else if (_checkForWinningMove(boardState, _playerMarker)) {
+            return {score: -100};
         } else if (emptyCells.length === 0) {
-            return 0;
+            return {score: 0};
         };
 
-        let allTests = [];
+        // If not at an end game state:
+
+        const allTests = [];
 
         for (let i = 0; i < emptyCells.length; i++) {
 
-            let currentMove = {};
-            currentMove.index = emptyCells[i];
+            const currentMove = {};
+            currentMove.index = boardState[emptyCells[i]];
 
-            boardState[emptyCells[i]] = currentPlayer;
+            boardState[currentMove.index] = currentPlayer;
 
             if (currentPlayer === _aiMarker) {
+
                 const result = _minimax(boardState, _playerMarker);
-                currentMove.score = result.score;
-                
+                currentMove.score = result.score; 
+
             } else if (currentPlayer === _playerMarker) {
+
                 const result = _minimax(boardState, _aiMarker);
                 currentMove.score = result.score;
             }
 
-        boardState[emptyCells[i]] = currentMove.index
-        allTests.push(currentMove)
+            boardState[currentMove.index] = emptyCells[i]
+            allTests.push(currentMove);
         }
 
         let bestMove = _findBestMove(currentPlayer, allTests);
 
-        console.log(`Best Move: ${bestMove}`);
+        console.log(`Best Move: ${JSON.stringify(bestMove)}`);
         return allTests[bestMove];
     }
 
