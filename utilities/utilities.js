@@ -87,7 +87,7 @@ const gameMaster = (() => {
         };
     
         const _endGameMessage = (message, finalState) => {
-            let endGameModal = document.querySelector('.modal-background');
+            let endGameModal = document.querySelector('.end-modal-background');
             let messageSpace = document.querySelector('.end-game-message')
             messageSpace.textContent = message;
             console.log(finalState)
