@@ -1,4 +1,4 @@
-import {gameMaster} from './utilities/utilities.js'
+import {gameMaster, menuMaster} from './utilities/utilities.js'
 
 const hideModal = () => {
     gameMaster.updateScores();
@@ -38,8 +38,9 @@ closeDifficulty.addEventListener('click', () => {
     difficultyModal.style.visibility = 'hidden';
 });
 
-
 // Game initiation
+
+menuMaster.setMenuListeners();
 
 gameMaster.gameBoard.createBoard();
 gameMaster.showChoices();
