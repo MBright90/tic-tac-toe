@@ -1,7 +1,7 @@
 const computerBrain = (() => {
     let _difficultyPercent = 100;
-    let _aiMarker = 'O';
-    let _playerMarker = 'X';
+    let _aiMarker = 'X';
+    let _playerMarker = 'O';
 
     const changeDifficulty = (percent) => {
         _difficultyPercent = percent;
@@ -21,12 +21,12 @@ const computerBrain = (() => {
             computerMoveNum = Math.floor((Math.random() * 9) + 1)
         }
         return computerMoveNum;
-        
+
     }
 
     const _currentBoardState = () => {
 
-        // Check which fields are empty, player filled or computer filled
+        // Checks the current board to determine which cells are filled by different players
 
         let fullGridArray = Array.from(document.querySelectorAll('.grid-space'));
 
@@ -57,12 +57,15 @@ const computerBrain = (() => {
         end game state */
 
         if (
+            // Rows
             boardState[0] === playerMark && boardState[1] === playerMark && boardState[2] === playerMark ||
             boardState[3] === playerMark && boardState[4] === playerMark && boardState[5] === playerMark ||
             boardState[6] === playerMark && boardState[7] === playerMark && boardState[8] === playerMark ||
+            // Columns
             boardState[0] === playerMark && boardState[3] === playerMark && boardState[6] === playerMark ||
             boardState[1] === playerMark && boardState[4] === playerMark && boardState[7] === playerMark ||
             boardState[2] === playerMark && boardState[5] === playerMark && boardState[8] === playerMark ||
+            // Diagonals
             boardState[0] === playerMark && boardState[4] === playerMark && boardState[8] === playerMark ||
             boardState[2] === playerMark && boardState[4] === playerMark && boardState[6] === playerMark
         ) {
@@ -79,7 +82,7 @@ const computerBrain = (() => {
         let currentBestMove;
 
         if (player === _aiMarker) {
-            let bestScore = Infinity;
+            let bestScore = 10000;
             for (let i = 0; i < testArray.length; i++) {
                 if (testArray[i].score < bestScore) {
                     bestScore = testArray[i].score;
@@ -88,7 +91,7 @@ const computerBrain = (() => {
             };
 
         } else {
-            let bestScore = -Infinity;
+            let bestScore = -10000;
             for (let i = 0; i < testArray.length; i++) {
                 if (testArray[i].score > bestScore) {
                     bestScore = testArray[i].score;
@@ -126,8 +129,11 @@ const computerBrain = (() => {
             const currentMove = {};
             currentMove.index = boardState[emptyCells[i]];
 
+            // Place the current iterations player on the index of the current cell space
             boardState[currentMove.index] = currentPlayer;
 
+
+            // Change player for each turn
             if (currentPlayer === _aiMarker) {
 
                 let result = _minimax(boardState, _playerMarker);
@@ -143,9 +149,10 @@ const computerBrain = (() => {
             allTests.push(currentMove);
         }
 
-        let bestMove = _findBestMove(currentPlayer, allTests);
+        let bestMove =  _findBestMove(currentPlayer, allTests)
 
-        return allTests[bestMove];
+        return allTests[bestMove]
+
     }
 
     return {
