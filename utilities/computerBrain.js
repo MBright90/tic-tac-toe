@@ -1,7 +1,7 @@
 const computerBrain = (() => {
     let _difficultyPercent = 100;
-    let _aiMarker = 'X';
-    let _playerMarker = 'O';
+    let _aiMarker = 'O';
+    let _playerMarker = 'X';
 
     const changeDifficulty = (percent) => {
         _difficultyPercent = percent;
@@ -45,10 +45,7 @@ const computerBrain = (() => {
     const _retrieveEmptyIndexes = (boardState) => {
 
         // Returning the possible positions for the current iteration of the minimax loop to place markers
-
-        return boardState.filter(space => {
-            return space === 'X' || space === 'O' ? false : true; 
-        });
+        return boardState.filter(space => typeof(space) === 'number');
     };
 
     const _checkForWinningMove = (boardState, playerMark) => {
@@ -81,8 +78,8 @@ const computerBrain = (() => {
 
         let currentBestMove;
 
-        if (player === _aiMarker) {
-            let bestScore = 10000;
+        if (player === _playerMarker) {
+            let bestScore = Infinity;
             for (let i = 0; i < testArray.length; i++) {
                 if (testArray[i].score < bestScore) {
                     bestScore = testArray[i].score;
@@ -91,7 +88,7 @@ const computerBrain = (() => {
             };
 
         } else {
-            let bestScore = -10000;
+            let bestScore = -Infinity;
             for (let i = 0; i < testArray.length; i++) {
                 if (testArray[i].score > bestScore) {
                     bestScore = testArray[i].score;
@@ -145,13 +142,14 @@ const computerBrain = (() => {
                 currentMove.score = result.score;
             }
 
-            boardState[currentMove.index] = emptyCells[i]
+            // boardState[currentMove.index] = emptyCells[i]
+            boardState[emptyCells[i]] = currentMove.index;
             allTests.push(currentMove);
-        }
+        };
 
         let bestMove =  _findBestMove(currentPlayer, allTests)
 
-        return allTests[bestMove]
+        return allTests[bestMove];
 
     }
 
