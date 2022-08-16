@@ -189,9 +189,8 @@ const gameMaster = (() => {
             const _sleep = ms => {
                 return new Promise(resolve => setTimeout(resolve, ms));
             }
-
-            // let computerChoice =         
-            let computerChoice = computerBrain.chooseMove();
+     
+            let computerChoice = computerBrain.chooseMove() + 1;
             console.log(computerChoice);
             let chosenGridSpace = document.querySelector(`[data-grid-number='${computerChoice}']`)
 
