@@ -44,4 +44,3 @@ menuMaster.setMenuListeners();
 
 gameMaster.gameBoard.createBoard();
 gameMaster.showChoices();
-gameMaster.playGame();
