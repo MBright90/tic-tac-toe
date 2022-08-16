@@ -2,7 +2,7 @@ import {gameMaster} from './utilities/utilities.js'
 
 const hideModal = () => {
     gameMaster.updateScores();
-    let modal = document.querySelector('.modal-background');
+    let modal = document.querySelector('.end-modal-background');
     modal.style.visibility = 'hidden'
 
     return hideModal;
@@ -29,5 +29,5 @@ cancelGameButton.addEventListener('click', () => {
 
 
 gameMaster.gameBoard.createBoard();
-gameMaster.showChoices();
+// gameMaster.showChoices();
 gameMaster.playGame();
