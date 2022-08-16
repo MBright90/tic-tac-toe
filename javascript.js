@@ -27,7 +27,20 @@ cancelGameButton.addEventListener('click', () => {
     hideModal();
 });
 
+let difficultyModal = document.querySelector('.about-modal-background');
+let showDifficultyModal = document.querySelector('.help-icon');
+showDifficultyModal.addEventListener('click', () => {
+    difficultyModal.style.visibility = 'visible';
+})
+
+let closeDifficulty = document.querySelector('.about-modal > a');
+closeDifficulty.addEventListener('click', () => {
+    difficultyModal.style.visibility = 'hidden';
+});
+
+
+// Game initiation
 
 gameMaster.gameBoard.createBoard();
-// gameMaster.showChoices();
+gameMaster.showChoices();
 gameMaster.playGame();
