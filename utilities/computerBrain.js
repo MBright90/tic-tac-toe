@@ -4,7 +4,7 @@ const computerBrain = (() => {
     let _playerMarker = 'X';
 
     const changeDifficulty = (percent) => {
-        _difficultyPercent = percent;
+        _difficultyPercent = parseInt(percent);
     };
 
     // Choosing whether to play best possible move or random move depending on the difficulty percent
