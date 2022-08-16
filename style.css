@@ -180,12 +180,30 @@ main {
     visibility: hidden;
 }
 
-/* main .choice-background {
-    visibility: 'visible';
-} */
+.about-modal-background {
+    visibility: visible !important;
+}
 
-main .about-modal-background {
-    visibility: 'visible' !important;
+.about-modal {
+    background-color: #D9CE3F;
+    border-radius: 5px;
+    font-size: 18px;
+    letter-spacing: 1px;
+    margin: 10px;
+    max-width: 360px;
+    padding: 10px;
+    position: relative;
+}
+
+.about-modal h3 {
+    margin-top: 10px;
+}
+
+.about-modal a {
+    color: #E83A14;
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
 
 .choice-background .choice-modal,
