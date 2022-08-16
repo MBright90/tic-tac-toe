@@ -193,7 +193,9 @@ const gameMaster = (() => {
             }
      
             let computerChoice = computerBrain.chooseMove() + 1;
-            console.log(computerChoice);
+            if (computerChoice === 10) {
+                computerChoice--;
+            };
             let chosenGridSpace = document.querySelector(`[data-grid-number='${computerChoice}']`)
 
             if (chosenGridSpace.textContent === '') {
@@ -363,10 +365,19 @@ const gameMaster = (() => {
         playerList.forEach(card => {
             card.classList.remove('is-playing')
         })
-    }
+    };
+
+    const resetGame = () => {
+        gameBoard.removeBoard();
+        gameBoard.clearCurrentStats();
+        gameBoard.createBoard();
+        showChoices();
+        playGame();
+    };
 
     return {
         gameBoard: gameBoard,
+        resetGame: resetGame,
         playGame: playGame,
         updateScores: updateScores,
         gameEnded: gameEnded,
@@ -375,4 +386,70 @@ const gameMaster = (() => {
 
 })();
 
-export {gameMaster};
+const menuMaster = (() => {
+
+    let menu = document.querySelector('.drop-down-menu');
+    let menuItems = document.querySelectorAll('.drop-down-menu > a');
+    let menuButton = document.querySelector('.drop-down-button');
+
+    const _showDropMenu = () => {
+        if (menu.classList.contains('menu-hidden')) {
+            menu.classList.remove('menu-hidden')
+
+            window.addEventListener('click', (e) => {
+                if (e.composedPath()[1] != menu) {
+                    removeDropMenu;
+                };
+            });
+        } else {
+            throw new Error('Menu not currently hidden');
+        };
+    };
+
+    const removeDropMenu = () => {
+        if (!menu.classList.contains('menu-hidden')) {
+            menu.classList.add('menu-hidden')
+
+            window.removeEventListener('click', (e) => {
+                if (
+                    e.composedPath()[0] != menu || 
+                    e.composedPath()[1] != menu
+                    ) {
+                        removeDropMenu();
+                }
+            });
+        } else {
+            throw new Error('Menu already hidden')
+        };
+    };
+
+    const toggleDropMenu = () => {
+        if (menu.classList.contains('menu-hidden')) {
+            _showDropMenu();
+        } else {
+            removeDropMenu();
+        };
+    };
+
+    const setMenuListeners = () => {
+
+        menuButton.addEventListener('click', toggleDropMenu);
+
+        menuItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                computerBrain.changeDifficulty(e.target.dataset.difficultyPercent);
+                removeDropMenu()
+                gameMaster.resetGame();
+            })
+        })
+    }
+
+    return {
+        toggleDropMenu: toggleDropMenu,
+        removeDropMenu: removeDropMenu,
+        setMenuListeners: setMenuListeners,
+    };
+
+})();
+
+export {gameMaster, menuMaster};
