@@ -25,9 +25,11 @@ const gameMaster = (() => {
         ];
 
         const setComputerPlayer = (choice) => {
+            let iconSpace = document.querySelectorAll('.player-icon')[1];
             if (choice) {
-                let iconSpace = document.querySelectorAll('.player-icon')[1];
                 iconSpace.innerHTML = '<i class="fa-solid fa-computer"></i>'
+            } else {
+                iconSpace.innerHTML = '<i class="fa-solid fa-person"></i>'
             };
             return choice ? _computerPlayer = true : _computerPlayer = false;
         }
