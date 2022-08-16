@@ -18,6 +18,7 @@ html, *, a {
 body {
     font-family: 'bangers', cursive;
     position: relative;
+    z-index: -1;
 }
 
 p:empty {
@@ -63,7 +64,7 @@ header > h1 {
 /* -------------- Main and player spaces ------------- */
 
 main {
-    display: flex;;
+    display: flex;
     align-items: center;
     flex-direction: column;
     gap: 20px;
@@ -123,37 +124,36 @@ main {
     font-family: 'tillana-bold';
     text-align: center;
     letter-spacing: 5px;
-} */
+}
 
 /* --------------- Game board ---------------- */
 
 .game-space {
     background-color: #8b0000;
-    flex: auto;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex: auto;
 }
 
 .board-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex: auto;
     padding: 10px;
 }
 
 .game-board {
     background-color: black;
+    border: solid 5px white;
     display: grid;
     grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
     gap: 3px;
-    min-height: 200px;
-    min-width: 200px;
+    flex: 1 1 auto;
+    height: auto;
+    min-width: calc(25vh + 25vw);
 }
 
 .game-board .grid-space {
     background-color: white;
-    font-size: 2em;
+    font-size: calc(10vh + 16px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -273,13 +273,15 @@ main {
 
 /* ------------- Footer --------------- */
 
-footer {
+footer a {
     color:rgba(0, 0, 0, 0.4);
     font-size: 2rem;
     position: absolute;
-    bottom: 10px;
-    width: 100%;
+    top: 50%;
+    right: -50px;
     text-align: center;
+    transform: rotate(270deg);
+    z-index: -1;
 }
 
 /* @media screen and (min-width: 1079px) {
