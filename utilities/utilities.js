@@ -312,6 +312,7 @@ const gameMaster = (() => {
         confirmChoices.addEventListener('click', () => {
             _setUpGame()
             choiceBackground.style.visibility = 'hidden';
+            playGame();
         });
     }
 
@@ -369,10 +370,10 @@ const gameMaster = (() => {
 
     const resetGame = () => {
         gameBoard.removeBoard();
-        gameBoard.clearCurrentStats();
+        gameBoard.resetGameBoard();
         gameBoard.createBoard();
+        updateScores();
         showChoices();
-        playGame();
     };
 
     return {
