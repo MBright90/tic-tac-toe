@@ -16,7 +16,7 @@ html, *, a {
 }
 
 body {
-    font-family: 'Oleo Script Swash Caps', cursive;
+    font-family: 'bangers', cursive;
     position: relative;
 }
 
@@ -31,32 +31,52 @@ header {
     box-shadow: 0 6px 3px rgba(0, 0, 0, 0.6);
     text-align: center;
     padding: 3px;
+    position: relative;
     width: 100vw;
+}
+
+header > button {
+    background-color: transparent;
+    border: none;
+    color: #E83A14;
+    font-size: 28px;
+    position: absolute;
+}
+
+header > .drop-down {
+    right: calc(3% + 40px);
+    bottom: 3px;
+}
+
+header > .help-icon {
+    right: calc(2% + 10px);
+    bottom: 3px;
 }
 
 header > h1 {
     color: #E83A14;
     font-family: 'Bangers', cursive;
-    font-size: 48px;
+    font-size: 32px;
     letter-spacing: 3px;
 }
 
 /* -------------- Main and player spaces ------------- */
 
 main {
-    display: flex;
-    justify-content: center;
+    display: flex;;
     align-items: center;
     flex-direction: column;
-    min-height: calc(100vh - 75px);
+    gap: 20px;
+    min-height: calc(100vh - 40px);
     position: relative;
 }
 
-.player-space {
+ .player-space {
     display: flex;
+    flex: none;
     justify-content: center;
     align-items: center;
-    min-width: 212px;
+    margin: 20px 0;
 }
 
 .player-space > .player-card {
@@ -69,34 +89,27 @@ main {
 }
 
 .player-space > .is-playing {
-    animation: pulse-card 2s infinite;
+    animation: pulse-card 1s infinite;
 }
 
 @keyframes pulse-card {
 	0% {
-		transform: scale(0.98);
 		box-shadow: 0 0 0 0 #D9CE3F;
 	}
 
 	50% {
-		transform: scale(1);
 		box-shadow: 0 0 0 10px #E83A14;
 	}
 
 	100% {
-		transform: scale(0.98);
 		box-shadow: 0 0 0 0 #D9CE3F;
 	}
 }
 
 .player-space > .player-card > .player-icon {
-    font-size: 85px;
+    font-size: 70px;
     text-align: center;
 }
-
-/* .player-space > .player-card > .is-playing {
-    animation: pulse-icon 2s infinite;
-} */
 
 .player-space > .player-card > .player-info {
     color: rgba(0, 0, 0, 0.8);
@@ -110,52 +123,45 @@ main {
     font-family: 'tillana-bold';
     text-align: center;
     letter-spacing: 5px;
-}
+} */
 
 /* --------------- Game board ---------------- */
 
 .game-space {
+    background-color: #8b0000;
+    flex: auto;
     display: flex;
-    flex-shrink: 1;
     justify-content: center;
     align-items: center;
-    min-width: 200px;
-    min-height: 300px;
 }
 
 .board-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    
     padding: 10px;
-    min-height: 200px;
-    width: 90%;
 }
 
 .game-board {
     background-color: black;
     display: grid;
     grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
-    flex-shrink: 1;
     gap: 3px;
-    height: min(50vh, 700px);
-    min-height: 350px;
-    min-width: 350px;
-
+    min-height: 200px;
+    min-width: 200px;
 }
 
 .game-board .grid-space {
     background-color: white;
-    font-size: 300%;
+    font-size: 2em;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.game-board .grid-space:hover {
+/* .game-board .grid-space:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-}
+} */ 
 
 /* ------------- Modals ------------- */
 
@@ -276,7 +282,7 @@ footer {
     text-align: center;
 }
 
-@media screen and (min-width: 1079px) {
+/* @media screen and (min-width: 1079px) {
     main {
         display: grid;
         grid-template-columns: auto 2fr auto;
@@ -326,9 +332,9 @@ footer {
             display: none;
         }
     }
-}
+} */
 
-
+/* 
 @media screen and (max-height: 820px) {
     footer {
         display: none;
@@ -339,4 +345,4 @@ footer {
     header {
         display: none;
     }
-}
+} */
