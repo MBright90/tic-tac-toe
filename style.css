@@ -326,7 +326,7 @@ footer a {
     right: -50px;
     text-align: center;
     transform: rotate(270deg);
-    z-index: -1;
+    z-index: 1;
 }
 
 @media screen and (max-height: 580px) {
