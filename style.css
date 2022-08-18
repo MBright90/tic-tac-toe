@@ -86,6 +86,7 @@ header > h1 {
 
 .menu-hidden {
     opacity: 0 !important;
+    z-index: -1;
 }
 
 /* -------------- Main and player spaces ------------- */
