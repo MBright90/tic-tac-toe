@@ -1,5 +1,5 @@
 const computerBrain = (() => {
-    let _difficultyPercent = 100;
+    let _difficultyPercent = 33;
     let _aiMarker = 'O';
     let _playerMarker = 'X';
 
