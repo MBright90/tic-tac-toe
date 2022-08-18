@@ -331,6 +331,10 @@ footer a {
 }
 
 @media screen and (max-height: 580px) {
+    main {
+        min-height: calc(100vh - 100px) !important;
+    }
+
     .player-space > .player-card > .player-icon {
         font-size: 50px;
         text-align: center;
